@@ -3,7 +3,11 @@
 )
 
 (
- "\"" @CMYKQuote
+ "\"" @CMYKSingleQuote
+)
+
+(
+ "\"" @CMYKDoubleQuote
 )
 
 (
