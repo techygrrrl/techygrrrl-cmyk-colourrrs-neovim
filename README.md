@@ -13,4 +13,4 @@
 
 ## Credits
 
-Theme ported to Neovim by @TODO
+Theme ported to Neovim by [@fadiinho](https://github.com/fadiinho)
