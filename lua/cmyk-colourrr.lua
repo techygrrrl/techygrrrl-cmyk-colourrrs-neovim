@@ -100,6 +100,7 @@ local colors = {
 	NormalNC = { fg = "#9B92AB", bg = "#191424" },
 	Number = { fg = "#EF9815" },
 	Operator = { fg = "#B596F8" },
+	Parameter = { fg = "#DFDCE4" },
 	Pmenu = { fg = "#DFDCE4", bg = "#392D53" },
 	PmenuSBar = { bg = "#463767" },
 	PmenuSel = { fg = "#EF15C0", bg = "#302546" },
@@ -144,8 +145,8 @@ local colors = {
 	TSNamespace = { fg = "#EF15C0" },
 	TSNumber = { fg = "#EF9815" },
 	TSOperator = { fg = "#B596F8" },
-	TSParameter = {},
-	TSParameterReference = {},
+	TSParameter = { fg = "#DFDCE4" },
+	TSParameterReference = { fg = "#DFDCE4" },
 	TSProperty = { fg = "#DFDCE4" },
 	TSPunctBracket = { fg = "#EBEF15" },
 	TSPunctDelimiter = { fg = "#EBEF15" },
@@ -238,7 +239,7 @@ local colors = {
 
 vim.cmd([[highlight clear]])
 vim.opt.termguicolors = true
-vim.g.colors_name = "cmyk-colourrr"
+vim.g.colors_name = "cmyk-colourrrs"
 
 for group, attrs in pairs(colors) do
 	vim.api.nvim_set_hl(0, group, attrs)
