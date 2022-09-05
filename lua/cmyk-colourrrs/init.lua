@@ -250,16 +250,19 @@ vim.cmd([[highlight clear]])
 vim.opt.termguicolors = true
 vim.g.colors_name = "cmyk-colourrrs"
 
-require("cmyk-colourrrs.utils").setup_if_available({
-	["feline"] = feline,
-})
-
 for group, attrs in pairs(pallette) do
 	vim.api.nvim_set_hl(0, group, attrs)
 end
 
--- TODO: Make this useful
 local M = {}
-M.setup = function() end
+M.setup = function(user_config)
+	local config = vim.tbl_deep_extend("force", {
+		setup_feline = true,
+	}, user_config or {})
+
+	require("cmyk-colourrrs.utils").setup_if_available({
+		["feline"] = config.setup_feline and feline,
+	})
+end
 
 return M
