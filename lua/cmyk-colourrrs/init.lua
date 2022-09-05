@@ -1,5 +1,5 @@
-local colors = require("colors")
-local feline = require("config.feline")
+local colors = require("cmyk-colourrrs.colors")
+local feline = require("cmyk-colourrrs.config.feline")
 
 -- TODO: Refactor highlights to their own file
 
@@ -250,10 +250,16 @@ vim.cmd([[highlight clear]])
 vim.opt.termguicolors = true
 vim.g.colors_name = "cmyk-colourrrs"
 
-require("utils").setup_if_available({
+require("cmyk-colourrrs.utils").setup_if_available({
 	["feline"] = feline,
 })
 
 for group, attrs in pairs(pallette) do
 	vim.api.nvim_set_hl(0, group, attrs)
 end
+
+-- TODO: Make this useful
+local M = {}
+M.setup = function() end
+
+return M

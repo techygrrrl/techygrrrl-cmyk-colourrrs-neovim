@@ -1,4 +1,4 @@
-local colors = require("colors")
+local colors = require("cmyk-colourrrs.colors")
 local M = {}
 
 -- Source: https://github.com/AstroNvim/AstroNvim/blob/main/lua/core/status.lua
