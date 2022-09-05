@@ -58,10 +58,20 @@ local function get_vi_mode()
 	}
 end
 
-local function spacer(props)
-	props = vim.tbl_extend("force", { fg = colors.cmyk_black, bg = colors.cmyk_black, length = 1 }, props or {})
+local SPACERS = {
+	left = "",
+	mid = "▊",
+	right = "",
+}
 
-	local separator = " " .. string.rep("▊", props.length) .. " "
+local function spacer(props)
+	props = vim.tbl_deep_extend(
+		"force",
+		{ fg = colors.cmyk_black, bg = colors.purrrple, length = 1, spacer = SPACERS.mid, enabled = true },
+		props or {}
+	)
+
+	local separator = string.rep(props.spacer, props.length)
 
 	return {
 		provider = separator,
@@ -69,14 +79,39 @@ local function spacer(props)
 			fg = props.fg,
 			bg = props.bg,
 		},
+		enabled = props.enabled,
 	}
 end
 
 local left = {
 	get_vi_mode(),
-	spacer(),
-	{ provider = "git_branch", hl = { fg = colors.hot_pink, bg = colors.cmyk_black } },
-	spacer(),
+	spacer({ bg = colors.cmyk_black }),
+	spacer({
+		spacer = SPACERS.left,
+		fg = colors.dark_400,
+		bg = colors.cmyk_black,
+		enabled = function()
+			if require("feline.providers.git").git_info_exists() ~= nil then
+				return true
+			end
+			return false
+		end,
+	}),
+	{
+		provider = "git_branch",
+		hl = { fg = colors.hot_pink, bg = colors.dark_400, style = "bold" },
+	},
+	spacer({
+		spacer = SPACERS.right,
+		fg = colors.dark_400,
+		bg = colors.cmyk_black,
+		enabled = function()
+			if require("feline.providers.git").git_info_exists() ~= nil then
+				return true
+			end
+			return false
+		end,
+	}),
 	{ provider = "git_diff_added", hl = { fg = colors.grrreen, bg = colors.cmyk_black }, icon = "  " },
 	{
 		provider = "git_diff_changed",
@@ -88,26 +123,44 @@ local left = {
 		hl = { fg = colors.electric_crrrimson, bg = colors.cmyk_black },
 		icon = "  ",
 	},
+	spacer({ bg = colors.cmyk_black }),
 }
 
+local hl_by_name = require("cmyk-colourrrs.utils").hl_by_name
+-- TODO: Conditionally make each diagnostic have separators
 local middle = {
-	spacer(),
+	{ " " },
 	{
 		provider = "diagnostic_errors",
-		hl = "DiagnosticError",
+		hl = function()
+			return { fg = hl_by_name("DiagnosticError", "foreground"), bg = colors.dark_400 }
+		end,
+		left_sep = function()
+			return SPACERS.left
+		end,
 	},
 	{
 		provider = "diagnostic_warnings",
-		hl = "DiagnosticWarn",
+		hl = function()
+			return { fg = hl_by_name("DiagnosticWarn", "foreground"), bg = colors.dark_400 }
+		end,
 	},
 	{
 		provider = "diagnostic_hints",
-		hl = "DiagnosticHint",
+		hl = function()
+			return { fg = hl_by_name("DiagnosticHint", "foreground"), bg = colors.dark_400 }
+		end,
 	},
 	{
 		provider = "diagnostic_info",
-		hl = "DiagnosticInfo",
+		hl = function()
+			return { fg = hl_by_name("DiagnosticInfo", "foreground"), bg = colors.dark_400 }
+		end,
+		right_sep = function()
+			return SPACERS.right
+		end,
 	},
+	{ " " },
 }
 
 local right = {
@@ -126,12 +179,16 @@ local right = {
 			},
 		},
 		hl = { fg = colors.light_100, bg = colors.cmyk_black },
+		left_sep = " ",
 	},
 	spacer(),
 	{
 		provider = "line_percentage",
 		hl = { fg = colors.light_100, bg = colors.cmyk_black },
+		left_sep = " ",
 	},
+	spacer({ bg = colors.cmyk_black }),
+	get_vi_mode(),
 }
 
 local components = {
