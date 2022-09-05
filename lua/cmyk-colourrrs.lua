@@ -1,4 +1,5 @@
 local colors = require("colors")
+local feline = require("config.feline")
 
 -- TODO: Refactor highlights to their own file
 
@@ -6,6 +7,7 @@ local pallette = {
 	Normal = { fg = colors.fg, bg = colors.bg },
 	ModeMsg = { link = "Normal" },
 	typescriptGlobal = { link = "Normal" },
+	StatusLine = { fg = colors.fg, bg = colors.cmyk_black },
 	typescriptObjectType = { link = "Normal" },
 	typescriptPredefinedType = { link = "Normal" },
 	Boolean = { fg = colors.hot_pink },
@@ -247,6 +249,10 @@ local pallette = {
 vim.cmd([[highlight clear]])
 vim.opt.termguicolors = true
 vim.g.colors_name = "cmyk-colourrrs"
+
+require("utils").setup_if_available({
+	["feline"] = feline,
+})
 
 for group, attrs in pairs(pallette) do
 	vim.api.nvim_set_hl(0, group, attrs)
