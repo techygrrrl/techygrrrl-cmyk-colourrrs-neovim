@@ -65,11 +65,14 @@ local SPACERS = {
 }
 
 local function spacer(props)
-	props = vim.tbl_deep_extend(
-		"force",
-		{ fg = colors.cmyk_black, bg = colors.purrrple, length = 1, spacer = SPACERS.mid, enabled = true },
-		props or {}
-	)
+	props = vim.tbl_deep_extend("force", {
+		fg = colors.cmyk_black,
+		bg = colors.dark_400,
+		length = 1,
+		spacer = SPACERS.mid,
+		enabled = true,
+		style = "NONE",
+	}, props or {})
 
 	local separator = string.rep(props.spacer, props.length)
 
@@ -78,6 +81,7 @@ local function spacer(props)
 		hl = {
 			fg = props.fg,
 			bg = props.bg,
+			style = props.style,
 		},
 		enabled = props.enabled,
 	}
@@ -126,40 +130,50 @@ local left = {
 	spacer({ bg = colors.cmyk_black }),
 }
 
-local hl_by_name = require("cmyk-colourrrs.utils").hl_by_name
--- TODO: Conditionally make each diagnostic have separators
+local utils = require("cmyk-colourrrs.utils")
+
 local middle = {
 	{ " " },
+	spacer({
+		spacer = SPACERS.left,
+		fg = colors.dark_400,
+		bg = colors.cmyk_black,
+		enabled = function()
+			return utils.tbl_diagnostics_exists({ "warn", "info", "hint", "error" })
+		end,
+	}),
 	{
 		provider = "diagnostic_errors",
 		hl = function()
-			return { fg = hl_by_name("DiagnosticError", "foreground"), bg = colors.dark_400 }
-		end,
-		left_sep = function()
-			return SPACERS.left
+			return { fg = utils.hl_by_name("DiagnosticError", "foreground"), bg = colors.dark_400 }
 		end,
 	},
 	{
 		provider = "diagnostic_warnings",
 		hl = function()
-			return { fg = hl_by_name("DiagnosticWarn", "foreground"), bg = colors.dark_400 }
+			return { fg = utils.hl_by_name("DiagnosticWarn", "foreground"), bg = colors.dark_400 }
 		end,
 	},
 	{
 		provider = "diagnostic_hints",
 		hl = function()
-			return { fg = hl_by_name("DiagnosticHint", "foreground"), bg = colors.dark_400 }
+			return { fg = utils.hl_by_name("DiagnosticHint", "foreground"), bg = colors.dark_400 }
 		end,
 	},
 	{
 		provider = "diagnostic_info",
 		hl = function()
-			return { fg = hl_by_name("DiagnosticInfo", "foreground"), bg = colors.dark_400 }
-		end,
-		right_sep = function()
-			return SPACERS.right
+			return { fg = utils.hl_by_name("DiagnosticInfo", "foreground"), bg = colors.dark_400 }
 		end,
 	},
+	spacer({
+		spacer = SPACERS.right,
+		fg = colors.dark_400,
+		bg = colors.cmyk_black,
+		enabled = function()
+			return utils.tbl_diagnostics_exists({ "warn", "info", "hint", "error" })
+		end,
+	}),
 	{ " " },
 }
 
