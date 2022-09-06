@@ -50,14 +50,14 @@ colorscheme cmyk-colourrrs
 ## Configuration
 You can disable some modifications on CMYK, if you wish.
 
-**Note**: You need to setup this before calling `vim.cmd [[colorscheme cmyk-colourrrs]]`
-
 Configurations are inside `vim.g["cmyk-colourrrs"]`
 
 Ex: `vim.g["cmyk-colourrrs"].enabled_plugins.feline`
 | key | default |
 |--|--|
 | `enabled_plugins.feline` | true |
+
+**Note: You need to setup this before calling** `vim.cmd [[colorscheme cmyk-colourrrs]]`
 
 ## Credits
 
