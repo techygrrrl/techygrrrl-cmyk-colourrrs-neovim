@@ -1,5 +1,4 @@
 local colors = require("cmyk-colourrrs.colors")
-local feline = require("cmyk-colourrrs.config.feline")
 
 -- TODO: Refactor highlights to their own file
 
@@ -255,14 +254,14 @@ for group, attrs in pairs(pallette) do
 end
 
 local M = {}
-M.setup = function(user_config)
+M.setup = function()
 	local config = vim.tbl_deep_extend("force", {
-		setup_feline = true,
-	}, user_config or {})
+		enabled_plugins = {
+			feline = true,
+		},
+	}, vim.g["cmyk-colourrrs"] or {})
 
-	require("cmyk-colourrrs.utils").setup_if_available({
-		["feline"] = config.setup_feline and feline,
-	})
+	require("cmyk-colourrrs.utils").setup_plugins(config)
 end
 
 return M

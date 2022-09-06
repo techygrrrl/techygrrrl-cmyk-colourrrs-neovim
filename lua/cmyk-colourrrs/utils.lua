@@ -40,12 +40,18 @@ M.tbl_diagnostics_exists = function(diagnostics)
 	return exists
 end
 
-M.setup_if_available = function(props)
-	for k, v in pairs(props) do
-		local is_available, mod = pcall(require, k)
+M.setup_if_available = function(_plugin, _mod)
+	local is_available, mod = pcall(require, _plugin)
 
-		if is_available then
-			mod.setup(v)
+	if is_available then
+		mod.setup(_mod)
+	end
+end
+
+M.setup_plugins = function(opts)
+	for plugin, enabled in pairs(opts.enabled_plugins) do
+		if enabled then
+			M.setup_if_available("feline", require("cmyk-colourrrs.config." .. plugin))
 		end
 	end
 end
