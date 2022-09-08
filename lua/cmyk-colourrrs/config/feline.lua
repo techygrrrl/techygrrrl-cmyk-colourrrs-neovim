@@ -95,10 +95,11 @@ local left = {
 		fg = colors.dark_400,
 		bg = colors.cmyk_black,
 		enabled = function()
-			if require("feline.providers.git").git_info_exists() ~= nil then
-				return true
+			local check = require("feline.providers.git").git_info_exists()
+			if check == nil or check == "" then
+				return false
 			end
-			return false
+			return true
 		end,
 	}),
 	{
@@ -110,10 +111,11 @@ local left = {
 		fg = colors.dark_400,
 		bg = colors.cmyk_black,
 		enabled = function()
-			if require("feline.providers.git").git_info_exists() ~= nil then
-				return true
+			local check = require("feline.providers.git").git_info_exists()
+			if check == nil or check == "" then
+				return false
 			end
-			return false
+			return true
 		end,
 	}),
 	{ provider = "git_diff_added", hl = { fg = colors.grrreen, bg = colors.cmyk_black }, icon = "  " },
