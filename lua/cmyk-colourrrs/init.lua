@@ -255,6 +255,7 @@ M.setup = function()
 	local config = vim.tbl_deep_extend("force", {
 		enabled_plugins = {
 			feline = true,
+			bufferline = true,
 		},
 	}, vim.g["cmyk-colourrrs"] or {})
 

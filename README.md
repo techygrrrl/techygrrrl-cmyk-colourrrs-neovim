@@ -56,6 +56,7 @@ Ex: `vim.g["cmyk-colourrrs"].enabled_plugins.feline`
 | key | default |
 |--|--|
 | `enabled_plugins.feline` | true |
+| `enabled_plugins.bufferline` | true |
 
 **Note: You need to setup this before calling** `vim.cmd [[colorscheme cmyk-colourrrs]]`
 
