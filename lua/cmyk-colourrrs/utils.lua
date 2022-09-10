@@ -51,7 +51,7 @@ end
 M.setup_plugins = function(opts)
 	for plugin, enabled in pairs(opts.enabled_plugins) do
 		if enabled then
-			M.setup_if_available("feline", require("cmyk-colourrrs.config." .. plugin))
+			M.setup_if_available(plugin, require("cmyk-colourrrs.config." .. plugin))
 		end
 	end
 end
