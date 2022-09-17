@@ -236,6 +236,7 @@ local pallette = {
 	typescriptTernaryOp = { fg = colors.lavendrrr },
 	typescriptTry = { fg = colors.hot_pink },
 	NeoTreeGitAdd = { fg = colors.grrreen },
+	NeoTreeGitAdded = { link = "NeoTreeGitAdd" },
 	NeoTreeGitStaged = { fg = colors.grrreen },
 	NeoTreeGitModified = { fg = colors.tangerrrine },
 	NeoTreeGitRenamed = { fg = colors.tangerrrine },
