@@ -176,7 +176,7 @@ local pallette = {
 	TypeBuiltin = { fg = colors.fg },
 	Variable = { fg = colors.fg },
 	typescriptVariableDeclaration = { link = "Variable" },
-	Visual = { bg = colors.light_500 },
+	Visual = { bg = colors.dark_300 },
 	Warn = { fg = colors.tangerrrine },
 	WarningMsg = { fg = colors.tangerrrine },
 	WinSeparator = { fg = colors.hot_pink },
