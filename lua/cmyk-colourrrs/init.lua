@@ -4,7 +4,7 @@ local colors = require("cmyk-colourrrs.colors")
 
 local pallette = {
 	Normal = { fg = colors.fg, bg = colors.bg },
-	ModeMsg = { link = "Normal" },
+	ModeMsg = { fg = colors.fg, bg = colors.cmy_black },
 	typescriptGlobal = { link = "Normal" },
 	StatusLine = { fg = colors.fg, bg = colors.cmyk_black },
 	typescriptObjectType = { link = "Normal" },
