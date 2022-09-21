@@ -1,4 +1,5 @@
 local colors = require("cmyk-colourrrs.colors")
+local null_ls_sources = require("cmyk-colourrrs.utils").null_ls_sources
 local M = {}
 
 -- Source: https://github.com/AstroNvim/AstroNvim/blob/main/lua/core/status.lua
@@ -7,8 +8,8 @@ local function lsp_client_names(expand_null_ls)
 		local buf_client_names = {}
 		for _, client in pairs(vim.lsp.buf_get_clients(0)) do
 			if client.name == "null-ls" and expand_null_ls then
-				vim.list_extend(buf_client_names, astronvim.null_ls_sources(vim.bo.filetype, "FORMATTING"))
-				vim.list_extend(buf_client_names, astronvim.null_ls_sources(vim.bo.filetype, "DIAGNOSTICS"))
+				vim.list_extend(buf_client_names, null_ls_sources(vim.bo.filetype, "FORMATTING"))
+				vim.list_extend(buf_client_names, null_ls_sources(vim.bo.filetype, "DIAGNOSTICS"))
 			else
 				table.insert(buf_client_names, client.name)
 			end
